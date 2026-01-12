@@ -1,5 +1,5 @@
-//ASM64CPP
-//please unquote the ASM64CPP
+;ASM64CPP
+;please unquote the ASM64CPP
 
 global hello :                        ; deglaration du nom du point d'entrer fichier (de base main )
 
@@ -55,5 +55,6 @@ proc exit
 end exit
 
 ;ok
+
 
 
