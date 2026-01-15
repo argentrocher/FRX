@@ -2,7 +2,7 @@ ASM64CPP
 //blob
 
 ; asm_cpp64 test2.asm bob.exe --cmd
-
+;les fonctions par défaut sont stocker dans asm_cpp64.cpp ceci les importes
 include default:
 
 global hello :                        ; deglaration du nom du point d'entrer fichier (de base main )
@@ -32,7 +32,7 @@ section .text
 proc hello
     sub rsp, 28h
 
-    ; asm_ascii_utf16(msg, tmpbuf, 0)
+    ; exemple afficher l'addr rcx en utf16 grâce à une fonction de include default
     mov rcx, 0x100000000014FF28
     mov rdx, $tmpbuf
     xor r8, r8
@@ -65,4 +65,5 @@ end exit
 
 
 ;ok
+
 
