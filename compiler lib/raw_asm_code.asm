@@ -1,4 +1,4 @@
-//fonction de copie asm ascii utf-16
+; fonction de copie asm ascii utf-16
 
     sub rsp, 28h
 
