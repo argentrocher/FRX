@@ -17,6 +17,12 @@ output.exe = nom du fichier sur lequel le resultat de l'opération est fait<br>
  --no_test_code = désactive le débuggage des instruction (si on a déjà tester, permet d'accèlérer le constructeur, option déconseiller !)<br>
  </strong>
 
+Fonctionnement avant les sections :
++ <code>ASM64CPP</code> évite un avertissement pour risque d'incompatibilité à écrire en premier sur la première ligne du fichier. 
++ <code>global &lt;fonctionname>:</code> avec &lt;fonctionname> qui définit la fonction point d'entré du code (démarage du code en exécutable ou équivalent à DllMain en dll), par défaut, le point d'entré est <code>main</code>.
++ <code>include default:</code> importe la liste des fonctions par défaut (visible sur default_asm_func_in_static.c même si le code a évolué avec @ au lieu de $ pour la compatibilité en dll, voir .text).
++ <code>include "&lt;file>"</code> importe un autre fichier sous même format et le mélange (! à l'unicitée des adresses !). 
+
  Fonctionnement par section (écrire <code>section &lt;section></code>) :
 
  <strong>.data :</strong>
