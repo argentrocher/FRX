@@ -10,11 +10,11 @@ Détail :
 <br><strong>
 source.asm = fichier de code asm<br>
 output.exe = nom du fichier sur lequel le resultat de l'opération est fait<br>
- --see_all_exception = voir les logs de l'appi du compilateur<br>
+ --see_all_exception = voir les logs de l'api du compilateur<br>
  --cmd != --gui = permet d'avoir le cmd ou non (par défaut --gui)<br>
  --dll = permet de compiler en tant que ficher dll<br> ↪ (! le point d'entré correspond à BOOL WINAPI DllMain(HINSTANCE hinstDLL,DWORD fdwReason,LPVOID lpvReserved) → doit renvoyer <code>mov eax, 1</code> pour ok accès fonction)<br>
  --debug = voir les information de débuggage de lecture du fichier configuration<br>
- --no_test_code = désactive le débuggage des instruction (si on a déjà tester, permet d'accèlérer le constructeur, option déconseiller !)<br>
+ --no_test_code = désactive le débuggage des instruction (si on a déjà tester, permet d'accèlérer le constructeur, option déconseiller car le code n'est pas vérifié pour chaques fonctions mais seulement au global, donc erreur du code non spécifiée !)<br>
  </strong>
 
 Fonctionnement avant les sections :
@@ -44,7 +44,7 @@ Pour accèder aux fonctions dans le code, mettre le nom de la fonction avec $ ou
 <strong>.edata :</strong>
 Section qui contient les adresses des fonctions/tampons a exporter (principalement pour fichier .dll mais fonctionne parfois avec .exe) :
 + <code>local &lt;exportname> [&lt;filename>]</code> avec &lt;exportname> le nom exporté donnant accès à un autre fichier (.exe ou .dll) à la fonction/tampon et [&lt;filename>] optionnel si le nom dans le code asm n'est pas celui que l'on veut exporter.
-+ <code>extern &lt;exportname> &lt;importdllfonction></code> avec &lt;exportname> le nom exporté donnant accès à un autre fichier (.exe ou .dll) à la fonction/tampon fournit par une autre dll et sa fonction/tampon de &lt;importdllfonction> (ex: <code>extern print msvcrt.printf</code> lorsque l'on importe cette dll, si on appel la fonction print, cela appelera en réalité msvcrt et la fonction printf).
++ <code>extern &lt;exportname> &lt;importdllfonction></code> avec &lt;exportname> le nom exporté donnant accès à un autre fichier (.exe ou .dll) à la fonction/tampon fournit par une autre dll et sa fonction/tampon de &lt;importdllfonction> (ex: <code>extern print msvcrt.printf</code> lorsque l'on importe cette dll, si on appel la fonction print, cela appelera en réalité msvcrt et la fonction printf ; option native à windows, ne dépend pas de .idata).
 
 <strong>.rsrc :</strong>
 Section qui contient l'icone, les boîtes de dialogue, le manifest et la version de l'application :
@@ -62,7 +62,7 @@ Section qui contient tout le code machine asembleur x86_64 (fait par keystone.dl
 <li>Pour joindre une fonction ou un tampon mémoire, 2 méthodes différentes sont proposé :</li>
 <ul>
  <li><code>$&lt;name></code> avec &lt;name> le nom a joindre. $ donne l'adresse en adresse absolu. Cela est plus rapide que l'adresse relative en temps de calcul à la compilation mais ne fonctionne que lorsque l'image est chargé à ça base donc seulement en .exe </li>
- <li><code>@&lt;name></code> avec &lt;name> le nom a joindre. @ donne l'adresse relative, il faut utiliser <code>[rip+@name]</code> avec <code>lea</code> ou <code>mov</code>. Lors de sont utilisation dans des fonctions, l'utilisation de <strong>0xFFFFFFFF</strong> ou <strong>0xFFFFFFFFFFFFFFFF</strong> est interdite car le calculateur utilise ces valeurs comme repère pour calculer l'adresse relative.</li>
+ <li><code>@&lt;name></code> avec &lt;name> le nom a joindre. @ donne l'adresse relative, il faut utiliser <code>[rip+@name]</code> avec <code>lea</code> ou <code>mov</code>. Lors de sont utilisation dans des fonctions, l'utilisation de <strong>0xFFFFFFFF</strong> ou <strong>0xFFFFFFFFFFFFFFFF</strong> est interdite car le calculateur utilise ces valeurs comme repère pour calculer l'adresse relative. De ce fait, l'adresse relative remplacera le premier tag 0XFF... par l'adresse relative donc fausse à cette emplacement et empèchera le fonctionnement de vôtre exécutable. Pour utiliser ses valeurs, déclarez les avec un tampon dans .data.</li>
 </ul>
 </ul>
 
