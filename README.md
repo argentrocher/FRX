@@ -50,7 +50,7 @@ Section qui contient les adresses des fonctions/tampons a exporter (principaleme
 Section qui contient l'icone, les boîtes de dialogue, le manifest et la version de l'application :
 + <code>icon "&lt;iconpath>"</code> avec &lt;iconpath> le chemin de l'image .ico a définir comme icone ( ! a l'emplacement de l'exécution de la commande).
 + <code>version_simple "&lt;version>" "&lt;nameapp>" "&lt;copyright>"</code> avec &lt;version> la version du fichier (généralement sous cette forme 0.0.0.0), &lt;nameapp> est le nom d'origine de vôtre application, &lt;copyright> le texte que vous voulez mettre en copyright.
-+ <code>version_full "&ltfileVersion>" "&ltproductVersion>" "&ltcompanyName>" "&ltfileDescription>" "&ltproductName>" "&ltoriginalFilename>" "&ltcopyright>"</code> permet d'avoir accès a tout les champs.
++ <code>version_full "&lt;fileVersion>" "&lt;productVersion>" "&lt;companyName>" "&lt;fileDescription>" "&lt;productName>" "&lt;originalFilename>" "&lt;copyright>"</code> permet d'avoir accès a tout les champs.
 + <code>manifest_simple "&lt;nameapp>" "&lt;version>" &lt;dpiAware> &lt;perMonitorV2> &lt;requireAdmin> &lt;commonV6></code> avec &lt;nameapp> nom de l'application, &lt;version> version de l'application (sous même format 0.0.0.0), puis des bool <code>true</code> ou <code>false</code> : &lt;dpiAware>  &lt;perMonitorV2> &lt;requireAdmin> &lt;commonV6>.
 + <code>manifest_xml "&lt;contain>"</code> avec &lt;contain> le contenu du fichier xml complet.
 + <code>dialog</code> et <code>control</code> (les control doivent suivrent dialog même si l'id les lies ensemble), voir exemple test3.asm ou code C++.
